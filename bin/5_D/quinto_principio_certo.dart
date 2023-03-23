@@ -29,11 +29,16 @@ class DioClient implements IHttpClient {
 class UsuarioRepository {
   // A forma correta seria receber esta dependência
   // pelo construtor e esta também precisa ser uma abstração
-  final IHttpClient client;
+  final IHttpClient _client;
 
-  UsuarioRepository(this.client);
+  UsuarioRepository({required IHttpClient client}) : _client = client;
 
   void getUsuario(String url) {
-    client.get(url: url);
+    _client.get(url: url);
   }
+}
+
+void main(List<String> args) {
+  final UsuarioRepository repository = UsuarioRepository(client: HttpClient());
+  repository.getUsuario('url');
 }
